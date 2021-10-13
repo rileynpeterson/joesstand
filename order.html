@@ -1,0 +1,184 @@
+<!DOCTYPE html>
+<html>
+    
+    <link rel="stylesheet" href="joes_stylesheet.css">
+    <link rel="preconnect" href="https://fonts.googleapis.com">
+    <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+    <link href="https://fonts.googleapis.com/css2?family=Rubik:wght@500&display=swap" rel="stylesheet">
+   
+    <style>
+        *{
+            box-sizing: border-box;
+        }
+        .orderbtn {
+            font-size: 40px; 
+            font-family:'Rubik', sans-serif; 
+            color: #FFA21F; 
+            background-color: #FF470A; 
+            border-radius: 4px; 
+            border-color: #FFA21F;
+        }
+        .orderbtn:hover {
+            background-color: #FFA21F; 
+            border: 1px solid #2EC4B6; 
+            color: #2EC4B6; 
+         }
+          /* Create two equal columns that floats next to each other */
+    .column {
+        float: left;
+        width: 50%;
+        padding: 10px;
+    }
+  
+  /* Clear floats after the columns */
+  .row:after {
+    content: "";
+    display: table;
+    clear: both;
+  }
+
+      @media screen and (max-width: 700px) {
+        .column {
+          width: 100%;
+        }
+      }
+    </style>
+    <head>
+        <title>Joe's Hotdogs</title>
+    </head>
+
+    <header >
+        <h1 style = "display: inline;">Joe's </h1>
+        <h1 style = "color:#FF470A; display:inline;">Hotdog </h1>
+        <h1 style = "display: inline;">Stand</h1>
+    </header>
+
+    <nav>
+        <a class = "nav_item"; href="index.html">HOME</a>
+        <a class = "nav_item"; href="order.html">ORDER</a>
+    </nav>
+
+    <body>
+        </br>
+        <h2 class = "banner" > 
+            Joe's Special: 10% discount if you spend $20 (before tax)!
+        </h2>
+        
+        <h2 class = "menutitle">
+            OUR MENU
+        </h2>
+    </br>
+    
+        <p class = "menuitems">
+            Hotdogs - $3.75 </br></br>
+            French Fries - $2.00 </br></br>
+            Drinks - $1.50
+        </p>
+        
+    </br>
+    </br>
+    </br>
+        <button class="orderbtn" style = "padding: 20px;"  onclick="order()">Order</button>
+    </br>
+    </br>
+    <script>
+        items= ["hotdog","fries","soda"];
+        prices=[3.75,2.00,1.50];
+        var hotdog, fries, soda, hsub, fsub, ssub, totalsub, discount, tax, total;
+
+        function order() {
+            hotdogs = prompt("Please enter the number of HOTDOGS you would like to order", "1");
+            fries = prompt("Please enter the number of FRENCH FRIES you would like to order", "1");
+            soda = prompt("Please enter the number of SODAS you would like to order", "1");
+            subtotal();
+        }
+
+        function subtotal()
+        {
+            hsub = (hotdogs * prices[0]).toFixed(2);
+            fsub = (fries * prices[1]).toFixed(2);
+            ssub = (soda * prices[2]).toFixed(2);
+            //alert(hsub);
+            //alert(fsub);
+            //alert(ssub);
+            document.getElementById("hotdogO").innerHTML = hotdogs + " Hotdog      : $" + hsub;
+            document.getElementById("frenchO").innerHTML = fries + "  French Fries : $" + fsub;
+            document.getElementById("sodaO").innerHTML = soda + "  Soda           : $" + ssub;
+            document.innerHTML = "––––––––––––––––––––––––––––––";
+            totalsub = (parseFloat(hsub) + parseFloat(fsub) + parseFloat(ssub)).toFixed(2);
+
+            if (totalsub >= 20.00) {
+                document.getElementById("sub").innerHTML = " Subtotal           : $" + totalsub;
+                document.getElementById("special").innerHTML = "Joe's Special Applied!";
+                calcDiscount();
+                calcTax();
+                calcTotal();
+            } else {
+                document.getElementById("sub").innerHTML = " Subtotal           : $" + totalsub;
+                document.getElementById("sub2").innerHTML = " Subtotal           : $" + totalsub;
+                discount = 0.00;
+                calcTax();
+                calcTotal();
+            }
+        }
+
+        function calcDiscount() {
+
+            discount = (totalsub * .10).toFixed(2);
+            document.getElementById("disc").innerHTML = "Discount :  - $" + discount;
+            document.getElementById("sub2").innerHTML = " Subtotal           : $" + totalsub;
+            document.getElementById("disc2").innerHTML = "Discount :  - $" + discount;
+
+        }
+
+        function calcTax() {
+            tax = (parseFloat(totalsub) * .0625).toFixed(2);
+            document.getElementById("tax").innerHTML = "Tax :  + $" + tax;
+        }
+
+        function calcTotal() {
+            total = (parseFloat(totalsub) - parseFloat(discount) + parseFloat(tax)).toFixed(2);
+            document.getElementById("tot").innerHTML = "Total:  $" + total;
+        }
+
+        
+    </script>
+       
+   </body>
+
+   <section>
+    <div class = "row" style = "text-align: left; background-color: #2EC4B6;">
+        <div class = "column" >
+        <h1 class = "subTitle">Subtotal: </h1>
+        <h3 id = "hotdogO"></p>
+        <h3 id = "frenchO"></p>
+        <h3 id = "sodaO"></p>
+        <h3 id = "line">––––––––––––––––––––––––––––––</h3>
+        <h3 id = "sub" >Subtotal : $_____</h3>
+        </br>
+        <h2 id = "special" style = "color:#FFA21F"></h2>
+        <h3 id = "disc" style = "color:#FFA21F"></h3>
+        </div>
+
+        <div class = "column" >
+            <h1 class = "totTitle">Total: </h1>
+            <h3 id = "sub2" >Subtotal : $_____</h3>
+            <h3 id = "disc2" style = "color:#FFA21F"></h3>
+            <h3 id = "tax" >Tax : $_____</h3>
+            <h3 id = "line2">––––––––––––––––––––––––––––––</h3>
+            <h3 id = "tot" style="color: #FF470A;">Total : $_____</h3>
+        </div>
+    </div>
+
+</section>
+
+    
+    
+
+    <footer>
+    </br>
+    </br>
+    </br>
+    </footer>
+
+</html>
